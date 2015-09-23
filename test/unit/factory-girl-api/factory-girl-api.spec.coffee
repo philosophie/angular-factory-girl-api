@@ -6,22 +6,45 @@ describe 'FactoryGirl', ->
 
     module 'factory-girl-api', 'test.factory-girl-api.config'
 
-  beforeEach inject (@$httpBackend, @FactoryGirl) ->
+  beforeEach inject (@FactoryGirl) ->
+
+  beforeEach ->
+    $.mockjaxSettings.logging = false
 
   afterEach ->
-    @$httpBackend.verifyNoOutstandingExpectation()
-    @$httpBackend.verifyNoOutstandingRequest()
+    expect($.mockjax.unmockedAjaxCalls().length).toBe 0
+    $.mockjax.clear()
 
   describe '.create', ->
     it 'makes a POST request to the factory route', ->
-      @$httpBackend.expectPOST('BASE_URL/factories/widget')
-        .respond widget: {}
-      @FactoryGirl.create 'widget'
-      @$httpBackend.flush()
+      params =
+        factory:
+          name: 'widget'
+          traits: []
+          attributes: {}
 
-  describe '.clean', ->
+      $.mockjax
+        url: 'BASE_URL/factories'
+        type: 'POST'
+        responseText:
+          widget: {}
+      @FactoryGirl.create 'widget'
+      expect($.mockjax.mockedAjaxCalls().length).toBe 1
+
+  describe '.setup', ->
+    it 'makes a POST request to the database route', ->
+      $.mockjax
+        url: 'BASE_URL/database'
+        type: 'POST'
+        responseText: {}
+      @FactoryGirl.setup()
+      expect($.mockjax.mockedAjaxCalls().length).toBe 1
+
+  describe '.teardown', ->
     it 'makes a DELETE request to the database route', ->
-      @$httpBackend.expectDELETE('BASE_URL/database')
-        .respond {}
-      @FactoryGirl.clean()
-      @$httpBackend.flush()
+      $.mockjax
+        url: 'BASE_URL/database'
+        type: 'DELETE'
+        responseText: {}
+      @FactoryGirl.teardown()
+      expect($.mockjax.mockedAjaxCalls().length).toBe 1

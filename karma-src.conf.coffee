@@ -2,6 +2,8 @@ module.exports = (config) ->
   configuration =
     files: [
       'bower/lodash/lodash.js'
+      'bower/jquery/dist/jquery.js'
+      'bower/jquery-mockjax/dist/jquery.mockjax.js'
       'bower/angular/angular.js'
       'bower/angular-mocks/angular-mocks.js'
       'src/**/*.module.coffee'

@@ -4,7 +4,7 @@ angular.module 'factory-girl-api'
     @baseUrl = (url) ->
       baseUrl = url
 
-    @$get = ($http) ->
+    @$get = ($q) ->
       create: (name, args...) ->
         traits = []
         attributes = {}
@@ -17,10 +17,20 @@ angular.module 'factory-girl-api'
           else
             traits = args
 
-        $http.post "#{baseUrl}/factories/#{name}",
-          factory: { traits, attributes }
+        $.ajax "#{baseUrl}/factories",
+          data:
+            factory: { name, traits, attributes }
+          dataType: 'json'
+          method: 'POST'
 
-      clean: ->
-        $http.delete "#{baseUrl}/database"
+      setup: ->
+        $.ajax "#{baseUrl}/database",
+          dataType: 'json'
+          method: 'POST'
+
+      teardown: ->
+        $.ajax "#{baseUrl}/database",
+          dataType: 'json'
+          method: 'DELETE'
 
     @
