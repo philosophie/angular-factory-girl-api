@@ -88,3 +88,5 @@ Returns a promise that resolves once the request has completed.
 Performs a request to delete all database records since the previous call to `setup`. This can be used to clean up DB context after creating records with factories.
 
 Returns a promise that resolves once the request has completed.
+
+[factory_girl_api]: https://github.com/lexi-lambda/factory_girl_api
