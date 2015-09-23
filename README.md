@@ -10,7 +10,7 @@ Install the angular-factory-girl-api Bower package:
 $ bower install --save-dev angular-factory-girl-api
 ```
 
-Then configure the module for your test suite by passing in the baseUrl. If you're using [factory_girl_api](https://github.com/lexi-lambda/factory_girl_api) on the Rails side of things then endpoint defaults to `http://yourdomain.com/api/v1/test_helpers`:
+Then configure the module for your test suite, see [configuration](#configuration) for full options:
 
 ```js
 angular.module('test.config.factory-girl-api', ['factory-girl-api'])
@@ -55,7 +55,7 @@ it('uses a widget', function (done) {
 
 ## Configuration
 
-You will likely need to configure the base URL for your factory_girl_api routes, which can be done through the `FactoryGirlProvider`.
+You will likely need to configure the base URL for your factory_girl_api routes, which can be done through the `FactoryGirlProvider`. If you're using [factory_girl_api](https://github.com/lexi-lambda/factory_girl_api) on the Rails side of things then endpoint defaults to `http://yourdomain.com/api/v1/test_helpers`
 
 | Method            | Description                                              |
 | ----------------- | -------------------------------------------------------- |
