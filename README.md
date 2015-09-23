@@ -13,7 +13,7 @@ $ bower install --save-dev angular-factory-girl-api
 Then configure the module for your test suite:
 
 ```js
-angular.module('test.config.factory-girl-api')
+angular.module('test.config.factory-girl-api', ['factory-girl-api'])
   .config(function (FactoryGirlProvider) {
     FactoryGirlProvider.baseUrl('http://example.com/api/v1/test_helpers');
   });
